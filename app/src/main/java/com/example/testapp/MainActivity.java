@@ -1,24 +1,40 @@
 package com.example.testapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
-    Intent intent;
-    Product[] products = new Product[2];
+    RecyclerView recyclerView;
+    //Product[] products = new Product[2];
+    private List<Product> products;
+
+    //PREFERENCES:
+    private SharedPreferences mySettings;
+    private static final String APP_SETINGS = "my_settings";
+    private static final String JSON_EXISTS = "json_exists";
+
+    private static final String FILE_NAME = "myProducts.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,35 +42,113 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(getResources().getString(R.string.main_screen));
 
-        button = findViewById(R.id.button);
+        recyclerView = findViewById(R.id.myRecyclerView);
 
-        products[0] = new Product("Booken Saga", 1, "text");
-        products[1] = new Product("Dexp L1 Moon", 2, "text2");
-        ExportToJson();
+        products = new ArrayList<>();
+        mySettings = getSharedPreferences(APP_SETINGS, Context.MODE_PRIVATE);
+        if (mySettings.getBoolean(JSON_EXISTS, false))
+            ReadJSON();//Есть настройки - в отдельном потоке выгружаем данные
+        else
+            CreateJSON();//Нет настроек - добавляем данные в отдельном потоке
     }
 
-    public void onClickButton(View view)
+    //Запись данных в json-файл
+    private void CreateJSON()
     {
-        intent = new Intent(this,AboutProductActivity.class);
-        startActivity(intent);
-    }
-
-    public void ExportToJson()
-    {
+        AddProducts();
         Gson gson = new Gson();
-        String gsonString = gson.toJson(products); //??
-        Log.d("123",gsonString);
+        String jsonString = gson.toJson(products);
+        Log.d("Содержимой файла json: ", jsonString);
+
+        FileOutputStream fileOutputStream = null;
+
+        try
+        {
+            fileOutputStream = getApplicationContext().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+            fileOutputStream.write(jsonString.getBytes());
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, "Файл JSON не был создан", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (fileOutputStream != null)
+            {
+                try
+                {
+                    fileOutputStream.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-//    private void InitProducts(Product[] products) //
-//    {
-//        for (int i = 0; i < products.length; i++)
-//        {
-//            InputStream inputStream = getApplicationContext().getAssets()
-//                    .open(products[i].getName() + ".jpg");
-//
-//        }
-//
-//    }
+    //чтение данных из json-файла
+    private void ReadJSON()
+    {
+        InputStreamReader streamReader = null;
+        FileInputStream fileInputStream = null;
+
+        try
+        {
+            fileInputStream = getApplicationContext().openFileInput(FILE_NAME);
+            streamReader = new InputStreamReader(fileInputStream);
+            Gson gson = new Gson();
+            //DataItems dataItems = gson.fromJson(streamReader, DataItems.class);
+            products = gson.fromJson(streamReader, List.class);
+            //Product[] products2 = gson.fromJson(streamReader, Product[].class);
+            Log.d("123", products.get(0).getName() + " " + products.get(0).getId());
+        }
+        catch (IOException ex)
+        {
+            SharedPreferences.Editor editor = mySettings.edit();
+            editor.putBoolean(JSON_EXISTS, false);
+            editor.apply();
+            ex.printStackTrace();
+        }
+        finally
+        {
+            if (streamReader != null)
+            {
+                try
+                {
+                    streamReader.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if (fileInputStream != null)
+            {
+                try
+                {
+                    fileInputStream.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void AddProducts()
+    {
+        products.add(new Product("Bookeen Saga", 1, "Описание 1"));
+        products.add(new Product("Dexp FL2 Jupiter", 2, "Описание 2"));
+        products.add(new Product("Dexp L1 Moon", 3, "Описание 3"));
+        products.add(new Product("Dexp L2 Moon", 4, "Описание 4"));
+        products.add(new Product("Dexp S1 Symbol", 5, "Описание 5"));
+        products.add(new Product("Dexp T2 Composition", 6, "Описание 6"));
+        products.add(new Product("PocketBook 614 Plus", 7, "Описание 7"));
+        products.add(new Product("PocketBook 625 LE", 8, "Описание 8"));
+        products.add(new Product("PocketBook 740", 9, "Описание 9"));
+    }
 
 }
