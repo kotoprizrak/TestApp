@@ -3,4 +3,7 @@
 
     <string name="main_screen">Главный экран</string>
     <string name="about_product">О продукте</string>
+    <string name="id">id</string>
+    <string name="name">Название</string>
+
 </resources>

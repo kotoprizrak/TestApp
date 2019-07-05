@@ -14,6 +14,7 @@ public class AboutProductActivity extends AppCompatActivity {
 
 //        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
 
     }
 

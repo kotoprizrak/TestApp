@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MyLinearLayoutRecyclerViewPart">
+
+    
+    <LinearLayout
+        style="@style/MyLinearLayoutRecyclerViewDesc">
+
+        <TextView
+            style="@style/MyTextViewSecondary"
+            android:text="@string/id" />
+
+        <TextView
+            android:id="@+id/textViewRecyclerViewId"
+            style="@style/MyTextViewPrimary"
+            android:text="test"/>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/MyLinearLayoutRecyclerViewDesc">
+
+        <TextView
+            style="@style/MyTextViewSecondary"
+            android:text="@string/name" />
+
+        <TextView
+            android:id="@+id/textViewRecyclerViewName"
+            style="@style/MyTextViewPrimary"
+            android:text="test"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
+
+</LinearLayout>
