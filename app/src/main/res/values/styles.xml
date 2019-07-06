@@ -9,10 +9,8 @@
     </style>
 
     <style name="MyLinearLayoutMainActivity">
-        <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -21,14 +19,13 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="MyLinearLayoutRecyclerViewPart">
+    <style name="MyLinearLayoutVertical">
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_margin">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="MyLinearLayoutRecyclerViewDesc">
+    <style name="MyLinearLayoutHorizontal">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -45,6 +42,18 @@
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MyImageViewAboutProduct">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="myDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
 </resources>

@@ -11,6 +11,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             style="@style/MyRecyclerView"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:id="@+id/myRecyclerView">
 
         </androidx.recyclerview.widget.RecyclerView>

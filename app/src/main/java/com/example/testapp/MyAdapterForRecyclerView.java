@@ -2,6 +2,8 @@ package com.example.testapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.zip.Inflater;
+import java.util.List;
 
 //Пользовательский адаптер для работы со списком главного активити
 public class MyAdapterForRecyclerView extends RecyclerView.Adapter<MyAdapterForRecyclerView.MyViewHolder> {
 
     private LayoutInflater inflater;
-    private Product[] products;
+    private List<Product> products;
     private Context context;
 
-    public MyAdapterForRecyclerView(Context context, Product[] products) {
+    public static final String PRODUCT_NAME = "product_name";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRODUCT_DESCRIPTION = "product_description";
+    public static final String PRODUCT_IMAGE = "product_image";
+
+    public MyAdapterForRecyclerView(Context context, List<Product> products) {
         this.products = products;
         this.context = context;
         this.inflater = LayoutInflater.from(context.getApplicationContext());
@@ -33,9 +40,9 @@ public class MyAdapterForRecyclerView extends RecyclerView.Adapter<MyAdapterForR
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String id = " " + products[position].getId();
-        String name = " " + products[position].getName();
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+        String id = " " + products.get(position).getId();
+        String name = " " + products.get(position).getName();
 
         holder.tvId.setText(id);
         holder.tvName.setText(name);
@@ -43,7 +50,13 @@ public class MyAdapterForRecyclerView extends RecyclerView.Adapter<MyAdapterForR
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context.getApplicationContext(), AboutCompanyActivity.class);
+//                Bitmap bitmap = ((BitmapDrawable) products.get(position).getDrawable()).getBitmap();
+
+                Intent intent = new Intent(context.getApplicationContext(), AboutProductActivity.class);
+                intent.putExtra(PRODUCT_NAME, products.get(position).getName());
+                intent.putExtra(PRODUCT_ID, products.get(position).getId());
+                intent.putExtra(PRODUCT_DESCRIPTION, products.get(position).getDescription());
+                intent.putExtra(PRODUCT_IMAGE,((BitmapDrawable) products.get(position).getDrawable()).getBitmap());
                 context.startActivity(intent);
             }
         });
@@ -52,7 +65,7 @@ public class MyAdapterForRecyclerView extends RecyclerView.Adapter<MyAdapterForR
 
     @Override
     public int getItemCount() {
-        return products.length;
+        return products.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder

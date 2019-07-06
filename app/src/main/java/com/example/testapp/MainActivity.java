@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,13 +45,17 @@ public class MainActivity extends AppCompatActivity {
         setTitle(getResources().getString(R.string.main_screen));
 
         recyclerView = findViewById(R.id.myRecyclerView);
-
         products = new ArrayList<>();
+
         mySettings = getSharedPreferences(APP_SETINGS, Context.MODE_PRIVATE);
         if (mySettings.getBoolean(JSON_EXISTS, false))
             ReadJSON();//Есть настройки - в отдельном потоке выгружаем данные
         else
             CreateJSON();//Нет настроек - добавляем данные в отдельном потоке
+        InitializeImages();
+
+        MyAdapterForRecyclerView adapter = new MyAdapterForRecyclerView(this, products);
+        recyclerView.setAdapter(adapter);
     }
 
     //Запись данных в json-файл
@@ -149,6 +155,26 @@ public class MainActivity extends AppCompatActivity {
         products.add(new Product("PocketBook 614 Plus", 7, "Описание 7"));
         products.add(new Product("PocketBook 625 LE", 8, "Описание 8"));
         products.add(new Product("PocketBook 740", 9, "Описание 9"));
+    }
+
+    private void InitializeImages()
+    {
+        for (int i = 0; i < products.size(); i++)
+        {
+            InputStream inputStream = null;
+            Drawable drawable;
+            try
+            {
+                inputStream = getApplicationContext().getAssets().open(products.get(i).getName() + ".jpg");
+                drawable = Drawable.createFromStream(inputStream,null);
+                products.get(i).setDrawable(drawable);
+            }
+            catch (IOException exp)
+            {
+                exp.printStackTrace();
+                Log.d("123",exp + "");
+            }
+        }
     }
 
 }
