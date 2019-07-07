@@ -21,7 +21,7 @@ public class AboutProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_product);
-        setTitle(getResources().getString(R.string.about_product));
+        setTitle(getString(R.string.about_product));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvId = findViewById(R.id.textViewId);
@@ -30,12 +30,13 @@ public class AboutProductActivity extends AppCompatActivity {
         picture = findViewById(R.id.imageViewAboutProduct);
 
         intent = getIntent();
-        tvId.setText(Integer.toString(intent.getIntExtra(MyAdapterForRecyclerView.PRODUCT_ID, 0)));
-        tvDesc.setText(intent.getStringExtra(MyAdapterForRecyclerView.PRODUCT_DESCRIPTION));
-        tvName.setText(intent.getStringExtra(MyAdapterForRecyclerView.PRODUCT_NAME));
+        tvId.setText(" " + intent.getIntExtra(MyAdapterForRecyclerView.PRODUCT_ID, 0));
+        tvDesc.setText("" + intent.getStringExtra(MyAdapterForRecyclerView.PRODUCT_DESCRIPTION));
+        tvName.setText("" + intent.getStringExtra(MyAdapterForRecyclerView.PRODUCT_NAME));
         picture.setImageBitmap((Bitmap) intent.getParcelableExtra(MyAdapterForRecyclerView.PRODUCT_IMAGE));
     }
 
+    //Обеспечивает возврат в предыдущую активность
     @Override
     public boolean onSupportNavigateUp()
     {

@@ -1,19 +1,18 @@
 package com.example.testapp;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 public class Product {
     private String name;
     private int id;
     private String description;
-    private Drawable drawable;
+    private Bitmap picture;
 
-    public Product(String name, int id, String description)//, Drawable drawable)
+    public Product(String name, int id, String description)
     {
         this.name = name;
         this.id = id;
         this.description = description;
-        //this.drawable = drawable;
     }
 
     public String getName() {
@@ -40,11 +39,11 @@ public class Product {
         this.description = description;
     }
 
-    public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
+    public void setPicture(Bitmap picture) {
+        this.picture = picture;
     }
 
-    public Drawable getDrawable() {
-        return drawable;
+    public Bitmap getPicture() {
+        return picture;
     }
 }

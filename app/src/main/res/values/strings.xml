@@ -3,8 +3,14 @@
 
     <string name="main_screen">Главный экран</string>
     <string name="about_product">О продукте</string>
+    <string name="about_company">О компании</string>
     <string name="id">id</string>
     <string name="name">Название</string>
     <string name="description">Описание</string>
-
+    <string name="nameCompany">TestApp</string>
+    <string name="site">Сайт компании: </string>
+    <string name="linkSiteCompany"><u>https://github.com/kotoprizrak</u></string>
+    <string name="openInBrowser">Открыть сайт в браузере?</string>
+    <string name="OK">ОК</string>
+    <string name="cancel">Отмена</string>
 </resources>

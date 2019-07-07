@@ -38,16 +38,36 @@
     </style>
 
     <style name="MyTextViewPrimary">
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+<!--    <style name="MyTextViewLink">-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:layout_width">match_parent</item>-->
+<!--        <item name="android:autoLink">web</item>-->
+<!--        <item name="android:background"></item>-->
+<!--    </style>-->
+
+    <style name="MyTextViewLink">
+        <item name="android:layout_height">wrap_content</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="MyImageViewAboutProduct">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="MyImageViewAboutCompany">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
     </style>
 
     <style name="myDivider">

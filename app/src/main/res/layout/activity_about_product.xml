@@ -8,10 +8,8 @@
     tools:context=".AboutProductActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:layout_height="match_parent">
+        style="@style/MyLinearLayoutVertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageViewAboutProduct"
@@ -38,6 +36,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:paddingTop="10dp"
                 style="@style/MyLinearLayoutHorizontal">
 
                 <TextView
@@ -51,6 +50,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:paddingTop="10dp"
                 style="@style/MyLinearLayoutHorizontal">
 
                 <TextView
